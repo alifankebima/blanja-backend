@@ -1,4 +1,4 @@
-//Route untuk proses crud customer
+//Customer routes
 const express = require('express');
 const router = express.Router();
 const customerController = require('./src/controller/products');

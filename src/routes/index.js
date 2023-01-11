@@ -1,5 +1,4 @@
-//File untuk mengumpulkan semua routing
-
+//Combines all separated routes into a single file
 const express = require('express');
 const router = express.Router();
 const productRouter = require('./products');

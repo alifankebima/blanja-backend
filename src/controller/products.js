@@ -1,68 +1,94 @@
 /* eslint-disable no-undef */
-const modelProduct = require('../model/products')
+//Controller for products
+const modelProducts = require('../model/products')
 const commonHelper = require('../helper/common')
 
 let productController = {
+
+  //Get all products, filter query with get parameter queries when available
   getAllProduct: async(req, res) => {
     try {
-      const page = Number(req.query.page) || 1;
-      const limit = Number(req.query.limit) || 5;
-      const offset = (page - 1) * limit;
-      let sortBY = req.query.sortBY || "name";
-      let sort = req.query.sort || 'ASC';
+      //Parameter queries
       let searchParam = req.query.search || "";
-      const result = await modelProduct.selectAllProduct(limit, offset, searchParam,sortBY,sort);
-      const {
-        rows: [count],
-      } = await modelProduct.countData();
+      let sortBy = req.query.sortBY || "name";
+      let sort = req.query.sort || 'ASC';
+      const limit = Number(req.query.limit) || 5;
+      const page = Number(req.query.page) || 1;
+      const offset = (page - 1) * limit;
+      const result = await modelProducts.selectAllProduct(searchParam, sortBy, sort, limit, offset);
+      
+      //Pagination
+      const {rows: [count]} = await modelProducts.countData();
       const totalData = parseInt(count.count);
       const totalPage = Math.ceil(totalData / limit);
       const pagination = {
         currentPage: page,
         limit: limit,
-        totalData: totalData,
-        totalPage: totalPage,
+        totalData,
+        totalPage,
       };
-      commonHelper.response(res , result.rows, 200, "get data success",pagination);
+
+      //GetAllProduct response
+      commonHelper.response(res , result.rows, 200, "Get data successful",pagination);
     } catch (error) {
       console.log(error);
     }
   },
+
+  //Get product with a specified id
   getDetailProduct: async(req, res) => {
+    //Parameter id query
     const id = Number(req.params.id);
-    const {rowCount} = await modelProduct.findId(id);
-    if (!rowCount) {
-      return res.json({
-        Message : "data not found"
-      })
+    
+    //Find id in products, return 
+    try {
+      const {rowCount} = await modelProducts.findId(id);
+      if (!rowCount) {
+        return res.json({
+          Message : "data not found"
+        })
+      }
+    } catch (error) {
+      console.log(error);
     }
-    modelProduct.selectProduct(id)
+    modelProducts.selectProduct(id)
     .then((result) => {
-      commonHelper.response(res, result.rows[0], 200, "get data success");
+      commonHelper.response(res, result.rows[0], 200, "Get data successful");
     })
     .catch((err) => res.send(err));
   },
+
+  //create a product
   createProduct: async(req, res) => {
-    const { name, price, stock } = req.body;
-    const {rows: [count]} = await modelProduct.countData();    
+    const { name, price, description, stock, rating, color, size, id_category, id_seller } = req.body;
+    const {rows: [count]} = await modelProducts.countData();    
     const id = Number(count.count) + 1;
     let data = {
       id,
       name,
       price,
+      description,
       stock,
+      rating,
+      color,
+      size,
+      id_category,
+      id_seller
     };
-    modelProduct.insertProduct(data)
+    modelProducts.insertProduct(data)
     .then((result) => {
       commonHelper.response(res, result.rows, 201, "Product created");
     })
     .catch((err) => res.send(err));
   },
+
+  //update a product
   updateProduct: async(req, res) => {
     try {
         const id = Number(req.params.id);
-        const { name, price, stock } = req.body;
-        const {rowCount} = await modelProduct.findId(id);
+        const { name, price, description, stock, rating, color, size, id_category, id_seller } = req.body;
+        const {rowCount} = await modelProducts.findId(id);
+        console.log(rowCount);
         if (!rowCount) {
           return res.json({
             Message : "data not found"
@@ -72,9 +98,16 @@ let productController = {
           id,
           name,
           price,
+          description,
           stock,
+          rating,
+          color,
+          size,
+          id_category,
+          id_seller
         };
-        modelProduct.updateProduct(data)
+        console.log(data);
+        modelProducts.updateProduct(data)
         .then((result) => {
           commonHelper.response(res, result.rows, 200, "Product updated");
         })
@@ -83,16 +116,18 @@ let productController = {
       console.log(error);
     }
   },
+
+  //delete product
   deleteProduct: async(req, res) => {
     try {
       const id = Number(req.params.id);
-      const {rowCount} = await modelProduct.findId(id);
+      const {rowCount} = await modelProducts.findId(id);
       if (!rowCount) {
         return res.json({
           Message : "data not found"
         })
       }
-      modelProduct.deleteProduct(id)
+      modelProducts.deleteProduct(id)
       .then((result) => {
         commonHelper.response(res, result.rows, 200, "Product deleted");
       })
