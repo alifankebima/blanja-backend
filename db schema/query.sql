@@ -17,7 +17,7 @@ create table customer(
 create table seller(
     id int not null primary key,
     name varchar(255) not null,
-    phone_number int not null,
+    phone_number varchar(255) not null,
     email varchar(255) not null,
     password varchar(255) not null,
     gender gender not null,
@@ -43,4 +43,3 @@ create table category(
     id int not null primary key,
     name varchar(255) not null
 );
-
