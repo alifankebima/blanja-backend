@@ -12,14 +12,14 @@ const getDetailCustomer = (id) => {
 const insertCostumer = (data) => {
     const { id, name, phone_number, email, password, gender, date_of_birth} = data;
     return pool.query(`insert into customer values(${id}, '${name}', 
-        '${phone_number}', '${email}', '${password}', '${gender}', ${date_of_birth}`);
+        '${phone_number}', '${email}', '${password}', '${gender}', '${date_of_birth}')`);
 }
 
 const updateCustomer = (data) => {
     const { id, name, phone_number, email, password, gender, date_of_birth} = data;
     return pool.query(`update customer set name='${name}', phone_number='${phone_number}', 
         email='${email}', password='${password}', gender='${gender}', 
-        date_of_birth=${date_of_birth} where id=${id}`);
+        date_of_birth='${date_of_birth}' where id=${id}`);
 }
 
 const deleteCustomer = (id) => {
@@ -33,7 +33,7 @@ const countData = () => {
 const findId = (id) => {
     return new Promise((resolve, reject) => 
         pool.query(`select id from customer where id=${id}`, (error, result) => {
-            if (error) {
+            if (!error) {
                 resolve(result)
             } else {
                 reject(error)

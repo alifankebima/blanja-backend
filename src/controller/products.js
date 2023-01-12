@@ -40,7 +40,7 @@ let productController = {
     //Parameter id query
     const id = Number(req.params.id);
     
-    //Find id in products, return 
+    //Find id in products
     try {
       const {rowCount} = await modelProducts.findId(id);
       if (!rowCount) {
@@ -88,7 +88,6 @@ let productController = {
         const id = Number(req.params.id);
         const { name, price, description, stock, rating, color, size, id_category, id_seller } = req.body;
         const {rowCount} = await modelProducts.findId(id);
-        console.log(rowCount);
         if (!rowCount) {
           return res.json({
             Message : "data not found"
@@ -106,7 +105,6 @@ let productController = {
           id_category,
           id_seller
         };
-        console.log(data);
         modelProducts.updateProduct(data)
         .then((result) => {
           commonHelper.response(res, result.rows, 200, "Product updated");
