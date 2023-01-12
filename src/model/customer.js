@@ -1,11 +1,11 @@
 //SQL queries for accessing customer table
 const pool = require('../config/db');
 
-const selectAllCustomer = () => {
+const getAllCustomer = () => {
     return pool.query(`select * from customer`);
 }
 
-const selectCustomer = (id) => {
+const getDetailCustomer = (id) => {
     return pool.query(`select * from customer where id=${id}`);
 }
 
@@ -23,7 +23,11 @@ const updateCustomer = (data) => {
 }
 
 const deleteCustomer = (id) => {
-    return pool.query(`delete from customer where id=${id})`);
+    return pool.query(`delete from customer where id=${id}`);
+}
+
+const countData = () => {
+    return pool.query(`select count(*) from customer`);
 }
 
 const findId = (id) => {
@@ -51,11 +55,12 @@ const findEmail = (email) => {
 }
 
 module.exports = {
-    selectAllCustomer,
-    selectCustomer,
+    getAllCustomer,
+    getDetailCustomer,
     insertCostumer,
     updateCustomer,
     deleteCustomer,
+    countData,
     findEmail,
     findId
 }
