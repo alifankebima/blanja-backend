@@ -13,6 +13,8 @@ this repository also serves as a learning exercise at creating backend app with 
 | [CORS] | npm i cors |
 | [Eslint] | npm i eslint |
 | [Http-errors] | npm i http-errors |
+| [Helmet] | npm i helmet |
+| [XSS-Clean] | npm i xss-clean |
 
 [express]: <http://expressjs.com>
 [Nodemon]: <https://www.npmjs.com/package/nodemon>
@@ -22,6 +24,8 @@ this repository also serves as a learning exercise at creating backend app with 
 [CORS]: <https://www.npmjs.com/package/cors>
 [Eslint]: <https://eslint.org>
 [Http-errors]: <https://www.npmjs.com/package/http-errors>
+[Helmet]: <https://helmetjs.github.io/>
+[XSS-Clean]: <https://github.com/jsonmaur/xss-clean>
 
 
 
