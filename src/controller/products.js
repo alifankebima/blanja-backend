@@ -1,137 +1,104 @@
-/* eslint-disable no-undef */
 //Controller for products
-const modelProducts = require('../model/products')
-const commonHelper = require('../helper/common')
+const modelProducts = require('../model/products');
+const commonHelper = require('../helper/common');
 
-let productController = {
+const productController = {
 
-  //Get all products, filter query with get parameter queries when available
-  getAllProduct: async(req, res) => {
+  //Get all products, filter query with parameter queries when available
+  getAllProduct: async (req, res) => {
     try {
       //Parameter queries
-      let searchParam = req.query.search || "";
-      let sortBy = req.query.sortBY || "name";
-      let sort = req.query.sort || 'ASC';
+      const searchParam = req.query.search || '';
+      const sortBy = req.query.sortBy || 'name';
+      const sort = req.query.sort || 'ASC';
       const limit = Number(req.query.limit) || 5;
       const page = Number(req.query.page) || 1;
       const offset = (page - 1) * limit;
       const result = await modelProducts.selectAllProduct(searchParam, sortBy, sort, limit, offset);
-      
+      if (!result.rows[0]) return res.json({ Message: "No product found" });
+
       //Pagination
-      const {rows: [count]} = await modelProducts.countData();
-      const totalData = parseInt(count.count);
+      const { rows: [count] } = await modelProducts.countData();
+      const totalData = Number(count.count);
       const totalPage = Math.ceil(totalData / limit);
-      const pagination = {
-        currentPage: page,
-        limit: limit,
-        totalData,
-        totalPage,
-      };
+      const pagination = { currentPage: page, limit, totalData, totalPage };
 
-      //GetAllProduct response
-      commonHelper.response(res , result.rows, 200, "Get data successful",pagination);
+      //getAllProducts response
+      commonHelper.response(res, result.rows, 200, "Get all product successful", pagination);
     } catch (error) {
-      console.log(error);
+      if (error.name == "error") return res.json({ Message: "Incorrect parameter query" });
+      res.send(error);
     }
   },
 
-  //Get product with a specified id
-  getDetailProduct: async(req, res) => {
-    //Parameter id query
-    const id = Number(req.params.id);
-    
-    //Find id in products
+  //Get product with specified id
+  getDetailProduct: async (req, res) => {
     try {
-      const {rowCount} = await modelProducts.findId(id);
-      if (!rowCount) {
-        return res.json({
-          Message : "data not found"
-        })
-      }
-    } catch (error) {
-      console.log(error);
-    }
-    modelProducts.selectProduct(id)
-    .then((result) => {
-      commonHelper.response(res, result.rows[0], 200, "Get data successful");
-    })
-    .catch((err) => res.send(err));
-  },
-
-  //create a product
-  createProduct: async(req, res) => {
-    const { name, price, description, stock, rating, color, size, id_category, id_seller } = req.body;
-    const {rows: [count]} = await modelProducts.countData();    
-    const id = Number(count.count) + 1;
-    let data = {
-      id,
-      name,
-      price,
-      description,
-      stock,
-      rating,
-      color,
-      size,
-      id_category,
-      id_seller
-    };
-    modelProducts.insertProduct(data)
-    .then((result) => {
-      commonHelper.response(res, result.rows, 201, "Product created");
-    })
-    .catch((err) => res.send(err));
-  },
-
-  //update a product
-  updateProduct: async(req, res) => {
-    try {
-        const id = Number(req.params.id);
-        const { name, price, description, stock, rating, color, size, id_category, id_seller } = req.body;
-        const {rowCount} = await modelProducts.findId(id);
-        if (!rowCount) {
-          return res.json({
-            Message : "data not found"
-          })
-        }
-        let data = {
-          id,
-          name,
-          price,
-          description,
-          stock,
-          rating,
-          color,
-          size,
-          id_category,
-          id_seller
-        };
-        modelProducts.updateProduct(data)
-        .then((result) => {
-          commonHelper.response(res, result.rows, 200, "Product updated");
-        })
-        .catch((err) => res.send(err));
-    } catch (error) {
-      console.log(error);
-    }
-  },
-
-  //delete product
-  deleteProduct: async(req, res) => {
-    try {
+      //Checks if specified id exists
       const id = Number(req.params.id);
-      const {rowCount} = await modelProducts.findId(id);
-      if (!rowCount) {
-        return res.json({
-          Message : "data not found"
-        })
-      }
-      modelProducts.deleteProduct(id)
-      .then((result) => {
-        commonHelper.response(res, result.rows, 200, "Product deleted");
-      })
-      .catch((err) => res.send(err));
+      const { rowCount } = await modelProducts.findId(id);
+      if (!rowCount) return res.json({ Message: "Product not found" });
+
+      //getDetailProduct response
+      const result = await modelProducts.selectProduct(id);
+      commonHelper.response(res, result.rows[0], 200, "Get product successful");
     } catch (error) {
-      console.log();
+      res.send(error);
+    }
+  },
+
+  //Create product
+  createProduct: async (req, res) => {
+    try {
+      //Request body
+      const data = req.body;
+
+      //Count the number of records in products table to find out the next id value
+      const { rows: [count] } = await modelProducts.countData();
+      const id = Number(count.count) + 1;
+      data["id"] = id;
+
+      //createProduct response
+      const result = await modelProducts.insertProduct(data);
+      commonHelper.response(res, result.rows, 201, "Product created");
+    } catch (error) {
+      res.send(error);
+    }
+  },
+
+  //Update a product
+  updateProduct: async (req, res) => {
+    try {
+      //Request body
+      const data = req.body;
+
+      //Checks if specified id exists
+      const id = Number(req.params.id);
+      const { rowCount } = await modelProducts.findId(id);
+      if (!rowCount) return res.json({ Message: "Product not found" });
+
+      //updateProduct response
+      data["id"] = id;
+      const result = await modelProducts.updateProduct(data);
+      commonHelper.response(res, result.rows, 200, "Product updated");
+    } catch (error) {
+      res.send(error);
+    }
+  },
+
+  //Delete a product
+  deleteProduct: async (req, res) => {
+    try {
+      //Checks if specified id exists
+      const id = Number(req.params.id);
+      const { rowCount } = await modelProducts.findId(id);
+      if (!rowCount) return res.json({ Message: "Product not found" });
+      
+      //deleteProduct response
+      const result = await modelProducts.deleteProduct(id);
+      commonHelper.response(res, result.rows, 200, "Product deleted");
+    } catch (error) {
+      res.send(error);
     }
   },
 };

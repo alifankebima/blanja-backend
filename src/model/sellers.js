@@ -20,8 +20,9 @@ const updateSeller = (data) => {
     const { id, name, phone_number, email, password, gender, date_of_birth, store_name, store_description} = data;
     return pool.query(`update seller set name='${name}', phone_number='${phone_number}', 
         email='${email}', password='${password}', gender='${gender}', 
-        date_of_birth='${date_of_birth}', '${store_name}', '${store_description} where id=${id}`);
+        date_of_birth='${date_of_birth}', store_name='${store_name}', store_description='${store_description}' where id=${id}`);
 }
+
 
 const deleteSeller = (id) => {
     return pool.query(`delete from seller where id=${id}`);

@@ -1,4 +1,4 @@
-//Konfigurasi koneksi database
+//Database connection config
 const { Pool } = require('pg');
 const pool = new Pool({
     user: process.env.PGUSER,

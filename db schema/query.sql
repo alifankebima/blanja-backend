@@ -23,7 +23,7 @@ create table seller(
     gender gender not null,
     date_of_birth date not null,
     store_name varchar(255) not null,
-    store_description varchar(255)
+    store_description text
 );
 
 create table products(

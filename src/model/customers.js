@@ -1,11 +1,11 @@
 //SQL queries for accessing customer table
 const pool = require('../config/db');
 
-const getAllCustomer = () => {
+const selectAllCustomer = () => {
     return pool.query(`select * from customer`);
 }
 
-const getDetailCustomer = (id) => {
+const selectCustomer = (id) => {
     return pool.query(`select * from customer where id=${id}`);
 }
 
@@ -55,8 +55,8 @@ const findEmail = (email) => {
 }
 
 module.exports = {
-    getAllCustomer,
-    getDetailCustomer,
+    selectAllCustomer,
+    selectCustomer,
     insertCostumer,
     updateCustomer,
     deleteCustomer,

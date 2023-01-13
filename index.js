@@ -1,4 +1,6 @@
 /* eslint-disable no-unused-vars */
+//Main file for running the server
+
 //Import modules
 require('dotenv').config();
 const express = require('express');
@@ -21,7 +23,7 @@ app.use(xss());
 
 //Handle unknown routes
 app.all('*', (req, res, next) => {
-  next(new createError.NotFound())
+  next(new createError.NotFound());
 });
 
 //Error code and message

@@ -1,13 +1,12 @@
 //Combines all separated routes into a single file
 const express = require('express');
 const router = express.Router();
-const productRouter = require('./products');
-const customerRouter = require('./customer');
-const sellerRouter = require('./seller');
+const productsRouter = require('./products');
+const customersRouter = require('./customers');
+const sellersRouter = require('./sellers');
 
-router.use('/products', productRouter);
-router.use('/customer', customerRouter);
-router.use('/seller', sellerRouter);
-
+router.use('/products', productsRouter);
+router.use('/customers', customersRouter);
+router.use('/sellers', sellersRouter);
 
 module.exports = router;
