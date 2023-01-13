@@ -14,14 +14,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/products",
+							"raw": "http://localhost:3000/product",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"products"
+								"product"
 							]
 						}
 					},
@@ -33,7 +33,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/products?sortby=price&sort=desc&page=1&limit=10",
+							"raw": "http://localhost:3000/products?sortBy=id&sort=desc&page=1&limit=10",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -44,8 +44,8 @@
 							],
 							"query": [
 								{
-									"key": "sortby",
-									"value": "price"
+									"key": "sortBy",
+									"value": "id"
 								},
 								{
 									"key": "sort",
@@ -70,7 +70,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/products?search=jeans",
+							"raw": "http://localhost:3000/products?search=apel",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -82,7 +82,7 @@
 							"query": [
 								{
 									"key": "search",
-									"value": "jeans"
+									"value": "apel"
 								}
 							]
 						}
@@ -95,7 +95,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/products/3",
+							"raw": "http://localhost:3000/products/10",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -103,7 +103,7 @@
 							"port": "3000",
 							"path": [
 								"products",
-								"3"
+								"10"
 							]
 						}
 					},
@@ -116,7 +116,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"jam tangan\",\n    \"price\": 127000,\n    \"description\": \"merk terkenal dan paling banyak dicari\",\n    \"stock\": 99,\n    \"rating\": 4,\n    \"color\": \"kuning\",\n    \"size\": 2,\n    \"id_category\": 3,\n    \"id_seller\": 1\n}",
+							"raw": "{\n    \"name\": \"baju mahal\",\n    \"price\": 127000,\n    \"description\": \"mahal cuy\",\n    \"stock\": 99,\n    \"rating\": 4,\n    \"color\": \"\",\n    \"size\": 2,\n    \"id_category\": 3,\n    \"id_seller\": 1\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -144,7 +144,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"jam tangan keren\",\n    \"price\": 127000,\n    \"description\": \"merk terkenal dan paling banyak dicari\",\n    \"stock\": 99,\n    \"rating\": 4,\n    \"color\": \"putih\",\n    \"size\": 2,\n    \"id_category\": 3,\n    \"id_seller\": 1\n}",
+							"raw": "{\n    \"name\": \"baju murah\",\n    \"price\": 40000,\n    \"description\": \"jarang yang beli\",\n    \"stock\": 99,\n    \"rating\": 4,\n    \"color\": \"putih\",\n    \"size\": 2,\n    \"id_category\": 3,\n    \"id_seller\": 1\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -152,7 +152,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/products/5",
+							"raw": "http://localhost:3000/products/7",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -160,7 +160,7 @@
 							"port": "3000",
 							"path": [
 								"products",
-								"5"
+								"7"
 							]
 						}
 					},
@@ -172,7 +172,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/products/5",
+							"raw": "http://localhost:3000/products/7",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -180,7 +180,7 @@
 							"port": "3000",
 							"path": [
 								"products",
-								"5"
+								"7"
 							]
 						}
 					},
@@ -189,7 +189,7 @@
 			]
 		},
 		{
-			"name": "Customer",
+			"name": "Customers",
 			"item": [
 				{
 					"name": "Get all customer",
@@ -197,14 +197,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/customer",
+							"raw": "http://localhost:3000/customers",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"customer"
+								"customers"
 							]
 						}
 					},
@@ -216,15 +216,15 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/customer/3",
+							"raw": "http://localhost:3000/customers/4",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"customer",
-								"3"
+								"customers",
+								"4"
 							]
 						}
 					},
@@ -237,7 +237,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"shania\",\n    \"phone_number\": \"081223465932\",\n    \"email\": \"shania@gmail.com\",\n    \"password\": \"213412asd\",\n    \"gender\": \"perempuan\",\n    \"date_of_birth\": \"1999-01-24\"\n}",
+							"raw": "{\n    \"name\": \"iqbal\",\n    \"phone_number\": \"081223465932\",\n    \"email\": \"iqbal@gmail.com\",\n    \"password\": \"213412asd\",\n    \"gender\": \"laki-laki\",\n    \"date_of_birth\": \"1999-01-24\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -245,14 +245,14 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/customer",
+							"raw": "http://localhost:3000/customers",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"customer"
+								"customers"
 							]
 						}
 					},
@@ -265,7 +265,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Ilham\",\n    \"phone_number\": \"081223465932\",\n    \"email\": \"ilham@hotmail.com\",\n    \"password\": \"jonfawefnocweoi\",\n    \"gender\": \"laki-laki\",\n    \"date_of_birth\": \"1999-01-24\"\n}",
+							"raw": "{\n    \"name\": \"Ilham\",\n    \"phone_number\": \"081223465932\",\n    \"email\": \"ilham@gmail.com\",\n    \"password\": \"jonfawefnocweoi\",\n    \"gender\": \"laki-laki\",\n    \"date_of_birth\": \"1999-01-24\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -273,15 +273,15 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/customer/4",
+							"raw": "http://localhost:3000/customers/10",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"customer",
-								"4"
+								"customers",
+								"10"
 							]
 						}
 					},
@@ -293,14 +293,135 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/customer/5",
+							"raw": "http://localhost:3000/customers/5",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"customer",
+								"customers",
+								"5"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Sellers",
+			"item": [
+				{
+					"name": "Get all seller",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/sellers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"sellers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get seller by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/sellers/20",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"sellers",
+								"20"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create seller",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"ilham\",\n    \"phone_number\": \"085714738678\",\n    \"email\": \"alif@gmail.com\",\n    \"password\": \"bjksdfbj34\",\n    \"gender\": \"laki-laki\",\n    \"date_of_birth\": \"1999-10-10\",\n    \"store_name\": \"Coders\",\n    \"store_description\": \"Jual merchandise programmer\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/sellers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"sellers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update seller",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"alif\",\n    \"phone_number\": \"085714738678\",\n    \"email\": \"alif@gmail.com\",\n    \"password\": \"bjksdfbj34\",\n    \"gender\": \"laki-laki\",\n    \"date_of_birth\": \"1999-10-10\",\n    \"store_name\": \"Toko makmur jaya\",\n    \"store_description\": \"Jual barang keren\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/sellers/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"sellers",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete seller",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/sellers/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"sellers",
 								"5"
 							]
 						}
