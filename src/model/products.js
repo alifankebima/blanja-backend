@@ -1,31 +1,33 @@
-//SQL queries for accessing products table
 const pool = require('../config/db');
 
 const selectAllProduct = (searchParam, sortBy, sort, limit, offset) => {
-    return pool.query(`select * from products where name like '%${searchParam}%' order by ${sortBy} 
-        ${sort} LIMIT ${limit} OFFSET ${offset}`);
+    return pool.query(`select * from products where name like '%${searchParam}%'
+        order by ${sortBy} ${sort} limit ${limit} offset ${offset}`);
 }
 
 const selectProduct = (id) => {
-    return pool.query(`select * from products where id=${id}`);
+    return pool.query(`select * from products where id='${id}'`);
 }
 
 const insertProduct = (data) => {
-    const { id, name, price, description, stock, rating, color, size, id_category, id_seller } = data;
-    return pool.query(`insert into products values
-        (${id}, '${name}', ${price}, '${description}', ${stock}, 
-        ${rating}, '${color}', ${size}, ${id_category}, ${id_seller})`);
+    const { id, name, stock, price, photo, description, color, size, rating,
+        id_category, id_seller } = data;
+    return pool.query(`insert into products values('${id}', '${name}', ${stock},
+        ${price}, '${photo}', '${description}', '${color}', ${size}, ${rating},
+        ${id_category}, ${id_seller})`);
 }
 
 const updateProduct = (data) => {
-    const { id, name, price, description, stock, rating, color, size, id_category, id_seller } = data;
-    return pool.query(`update products set name='${name}', price=${price}, 
-        description='${description}', stock=${stock}, rating=${rating}, color='${color}', 
-        size=${size}, id_category=${id_category}, id_seller=${id_seller} where id=${id}`);
+    const { id, name, stock, price, photo, description, color, size, rating,
+        id_category, id_seller } = data;
+    return pool.query(`update products set name='${name}', stock=${stock},
+        price=${price}, photo='${photo}', description='${description}', 
+        color='${color}', size=${size}, rating=${rating}, id_category='${id_category}', 
+        id_seller='${id_seller}' where id='${id}'`);
 }
 
 const deleteProduct = (id) => {
-    return pool.query(`delete from products where id=${id}`);
+    return pool.query(`delete from products where id='${id}'`);
 }
 
 const countData = () => {
@@ -33,13 +35,14 @@ const countData = () => {
 }
 
 const findId = (id) => {
-    return new Promise((resolve, reject) => pool.query(`select id from products where id=${id}`, (error, result) => {
+    return new Promise((resolve, reject) => 
+        pool.query(`select id from products where id='${id}'`, (error, result) => {
             if (!error) {
                 resolve(result)
             } else {
                 reject(error)
             }
-        })
+       })
     )
 }
 

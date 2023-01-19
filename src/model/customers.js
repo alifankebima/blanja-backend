@@ -1,42 +1,41 @@
-//SQL queries for accessing customer table
 const pool = require('../config/db');
 
-const selectAllCustomer = () => {
-    return pool.query(`select * from customer`);
+const getAllCustomers = () => {
+    return pool.query(`select * from customers`);
 }
 
-const selectCustomer = (id) => {
-    return pool.query(`select * from customer where id=${id}`);
+const getCustomer = (id) => {
+    return pool.query(`select * from customers where id='${id}'`);
 }
 
 const insertCostumer = (data) => {
-    const { id, name, phone_number, email, password, gender, date_of_birth} = data;
-    return pool.query(`insert into customer values(${id}, '${name}', 
-        '${phone_number}', '${email}', '${password}', '${gender}', '${date_of_birth}')`);
+    const { id, email, password, fullname, role, phone_number, gender, date_of_birth } = data;
+    return pool.query(`insert into customers values('${id}', '${email}', '${password}', 
+        '${fullname}', '${role}', '${phone_number}', '${gender}', '${date_of_birth}')`);
 }
 
 const updateCustomer = (data) => {
-    const { id, name, phone_number, email, password, gender, date_of_birth} = data;
-    return pool.query(`update customer set name='${name}', phone_number='${phone_number}', 
-        email='${email}', password='${password}', gender='${gender}', 
-        date_of_birth='${date_of_birth}' where id=${id}`);
+    const { id, email, password, fullname, role, phone_number, gender, date_of_birth} = data;
+    return pool.query(`update customers set email='${email}', password='${password}',
+        fullname='${fullname}', role='${role}', phone_number='${phone_number}',
+        gender='${gender}', date_of_birth='${date_of_birth}' where id='${id}'`);
 }
 
 const deleteCustomer = (id) => {
-    return pool.query(`delete from customer where id=${id}`);
+    return pool.query(`delete from customers where id='${id}'`);
 }
 
 const countData = () => {
-    return pool.query(`select count(*) from customer`);
+    return pool.query(`select count(*) from customers`);
 }
 
 const findId = (id) => {
     return new Promise((resolve, reject) => 
-        pool.query(`select id from customer where id=${id}`, (error, result) => {
+        pool.query(`select id from customers where id='${id}'`, (error, result) => {
             if (!error) {
-                resolve(result)
+                resolve(result);
             } else {
-                reject(error)
+                reject(error);
             }
         })
     )
@@ -44,19 +43,19 @@ const findId = (id) => {
 
 const findEmail = (email) => {
     return new Promise((resolve, reject) =>
-        pool.query(`select email from customer where email='${email}'`, (error, result) => {
-            if (error) {
-                resolve(result)
+        pool.query(`select * from customers where email='${email}'`, (error, result) => {
+            if (!error) {
+                resolve(result);
             } else {
-                reject(error)
+                reject(error);
             }
         })
     )
 }
 
 module.exports = {
-    selectAllCustomer,
-    selectCustomer,
+    getAllCustomers,
+    getCustomer,
     insertCostumer,
     updateCustomer,
     deleteCustomer,

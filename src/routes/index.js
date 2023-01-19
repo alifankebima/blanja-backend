@@ -1,6 +1,7 @@
 //Combines all separated routes into a single file
 const express = require('express');
 const router = express.Router();
+
 const productsRouter = require('./products');
 const customersRouter = require('./customers');
 const sellersRouter = require('./sellers');

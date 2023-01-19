@@ -20,6 +20,7 @@ app.use(morgan('dev'));
 app.use('/', mainRouter);
 app.use(helmet());
 app.use(xss());
+app.use('/img', express.static('src/upload'));
 
 //Handle unknown routes
 app.all('*', (req, res, next) => {
