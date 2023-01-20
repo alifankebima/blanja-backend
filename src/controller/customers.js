@@ -10,15 +10,16 @@ let customerController = {
 
   registerCustomer : async (req, res)=>{
     try {
-      const { fullname, email, password, phone_number, gender, date_of_birth } = req.body;
-      const {rowCount} = await modelCustomers.findEmail(email);
+      let data = req.body;
+      const {rowCount} = await modelCustomers.findEmail(data.email);
       if(rowCount) return res.json({ Message: "Email is already used" });
       
       const salt = bcrypt.genSaltSync(10);
-      const passwordHash = bcrypt.hashSync(password, salt);
+      const passwordHash = bcrypt.hashSync(data.password, salt);
       const id = uuidv4();
 
-      let data = { id, email, password: passwordHash, fullname, role: "user", phone_number, gender, date_of_birth };
+      data = {...data, id, password: passwordHash, role: "customer"};
+      console.log(data);
       const result = await modelCustomers.insertCostumer(data);
       commonHelper.response(res, result.rows, 200, "Register successful");
     } catch (error) {
@@ -92,7 +93,7 @@ let customerController = {
   getDetailCustomer: async (req, res) => {
     try {
       //Checks if specified id exists
-      const id = Number(req.params.id);
+      const id = req.params.id;
       const { rowCount } = await modelCustomers.findId(id);
       if (!rowCount) return res.json({ Message: "Customer not found" });
 
@@ -111,9 +112,9 @@ let customerController = {
       const data = req.body;
 
       //Checks if specified id exists
-      const id = Number(req.params.id);
+      const id = req.params.id;
       const {rowCount} = await modelCustomers.findId(id);
-      if (!rowCount) return res.json({ Message : "data not found" });
+      if (!rowCount) return res.json({ Message : "Customer not found" });
 
       //updateCustomer response
       data["id"] = id;
@@ -127,13 +128,13 @@ let customerController = {
   deleteCustomer: async(req, res) => {
     try {
       //Checks if specified id exists
-      const id = Number(req.params.id);
+      const id = req.params.id;
       const {rowCount} = await modelCustomers.findId(id);
-      if (!rowCount) return res.json({ Message : "data not found" });
+      if (!rowCount) return res.json({ Message : "Customer not found" });
       
-      //deleteProduct response
+      //deleteCustomer response
       const result = await modelCustomers.deleteCustomer(id);
-      commonHelper.response(res, result.rows, 200, "Product deleted");
+      commonHelper.response(res, result.rows, 200, "Customer deleted");
     } catch (error) {
       res.send(error);
     }

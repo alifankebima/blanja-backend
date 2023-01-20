@@ -24,4 +24,30 @@ const protect = (req, res, next) => {
   }
 }
 
-module.exports = { protect }
+const valSeller = (req, res, next) => {
+  const payload = req.payload;
+  if(payload){
+    if(payload.role === "seller"){
+      next();
+    } else {
+      res.json({ message : "user are not seller (unauthorized)"});
+    }
+  } else {
+    res.json({ message : "role not found" });
+  }
+}
+
+const valCustomer = (req, res, next) => {
+  const payload = req.payload;
+  if(payload){
+    if(payload.role === "customer"){
+      next();
+    } else {
+      res.json({ message : "user are not customer (unauthorized)"});
+    }
+  } else {
+    res.json({ message : "role not found" });
+  }
+}
+
+module.exports = { protect, valSeller, valCustomer }

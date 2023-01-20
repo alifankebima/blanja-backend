@@ -21,7 +21,8 @@ let sellerController = {
 
       //registerSeller response
       const id = uuidv4();
-      data = { id, password: passwordHash, role: "seller"};
+      data = {...data, id, password: passwordHash, role: "seller"};
+      
       const result = await modelSellers.insertSeller(data);
       commonHelper.response(res, result.rows, 200, "Register seller successful");
     } catch (error) {
@@ -108,7 +109,7 @@ let sellerController = {
   updateSeller: async (req, res) => {
     try {
       //Checks if specified id exists
-      const id = Number(req.params.id);
+      const id = req.params.id;
       const { rowCount } = await modelSellers.findId(id);
       if (!rowCount) return res.json({ Message: "Seller not found" });
 
@@ -125,7 +126,7 @@ let sellerController = {
   deleteSeller: async (req, res) => {
     try {
       //Checks if specified id exists
-      const id = Number(req.params.id);
+      const id = req.params.id;
       const { rowCount } = await modelSellers.findId(id);
       if (!rowCount) return res.json({ Message: "Seller not found" });
 

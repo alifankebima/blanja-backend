@@ -11,29 +11,13 @@
 				{
 					"name": "Get all products",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/product",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"product"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get all products with sort and limit params",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/products?sortBy=id&sort=desc&page=1&limit=10",
+							"raw": "http://localhost:3000/products",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -41,24 +25,29 @@
 							"port": "3000",
 							"path": [
 								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get product by id",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/products/31ab033a-1875-4e8a-a3c3-751f51e6027b",
+							"protocol": "http",
+							"host": [
+								"localhost"
 							],
-							"query": [
-								{
-									"key": "sortBy",
-									"value": "id"
-								},
-								{
-									"key": "sort",
-									"value": "desc"
-								},
-								{
-									"key": "page",
-									"value": "1"
-								},
-								{
-									"key": "limit",
-									"value": "10"
-								}
+							"port": "3000",
+							"path": [
+								"products",
+								"31ab033a-1875-4e8a-a3c3-751f51e6027b"
 							]
 						}
 					},
@@ -67,6 +56,9 @@
 				{
 					"name": "Search product",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -90,33 +82,74 @@
 					"response": []
 				},
 				{
-					"name": "Get product by id",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/products/10",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"products",
-								"10"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "Create product",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RlczEyM0BnbWFpbC5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTY3NDE4MjUxNSwiZXhwIjoxNjc0MTg2MTE1LCJpc3MiOiJibGFuamEifQ.j1WUNBc_Z0zV-dAXx9T3QO9-MPwTGu1CCrQPAsEIDNg",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\": \"baju mahal\",\n    \"price\": 127000,\n    \"description\": \"mahal cuy\",\n    \"stock\": 99,\n    \"rating\": 4,\n    \"color\": \"\",\n    \"size\": 2,\n    \"id_category\": 3,\n    \"id_seller\": 1\n}",
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Baju monstercat",
+									"type": "text"
+								},
+								{
+									"key": "stock",
+									"value": "2",
+									"type": "default"
+								},
+								{
+									"key": "price",
+									"value": "240000",
+									"type": "default"
+								},
+								{
+									"key": "photo",
+									"type": "file",
+									"src": "/home/alif/Dropbox/Pijarcamp/Technical/Projects/blanja/image_files/shirt.png"
+								},
+								{
+									"key": "description",
+									"value": "Merchandise baju monstercat",
+									"type": "default"
+								},
+								{
+									"key": "color",
+									"value": "putih",
+									"type": "default"
+								},
+								{
+									"key": "size",
+									"value": "24",
+									"type": "default"
+								},
+								{
+									"key": "rating",
+									"value": "5",
+									"type": "default"
+								},
+								{
+									"key": "id_category",
+									"value": "1",
+									"type": "default"
+								},
+								{
+									"key": "id_seller",
+									"value": "2",
+									"type": "default"
+								}
+							],
 							"options": {
 								"raw": {
 									"language": "json"
@@ -140,11 +173,72 @@
 				{
 					"name": "Update product",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RlczEyM0BnbWFpbC5jb20iLCJyb2xlIjoic2VsbGVyIiwiaWF0IjoxNjc0MTc5NDkxLCJleHAiOjE2NzQxODMwOTEsImlzcyI6ImJsYW5qYSJ9.S5iO5fMgDB5C8K6e_aH25umA0YGqxH9Jn4iOE7Ws0ro",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [],
 						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\": \"baju murah\",\n    \"price\": 40000,\n    \"description\": \"jarang yang beli\",\n    \"stock\": 99,\n    \"rating\": 4,\n    \"color\": \"putih\",\n    \"size\": 2,\n    \"id_category\": 3,\n    \"id_seller\": 1\n}",
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Baju monstercat",
+									"type": "text"
+								},
+								{
+									"key": "stock",
+									"value": "2",
+									"type": "default"
+								},
+								{
+									"key": "price",
+									"value": "240000",
+									"type": "default"
+								},
+								{
+									"key": "photo",
+									"type": "file",
+									"src": "/home/alif/Unduhan/Redis_Logo.png"
+								},
+								{
+									"key": "description",
+									"value": "Merchandise baju monstercat",
+									"type": "default"
+								},
+								{
+									"key": "color",
+									"value": "putih",
+									"type": "default"
+								},
+								{
+									"key": "size",
+									"value": "24",
+									"type": "default"
+								},
+								{
+									"key": "rating",
+									"value": "5",
+									"type": "default"
+								},
+								{
+									"key": "id_category",
+									"value": "1",
+									"type": "default"
+								},
+								{
+									"key": "id_seller",
+									"value": "2",
+									"type": "default"
+								}
+							],
 							"options": {
 								"raw": {
 									"language": "json"
@@ -152,7 +246,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/products/7",
+							"raw": "http://localhost:3000/products/2cbdb315-d800-42da-98bb-5abad285e0db",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -160,7 +254,7 @@
 							"port": "3000",
 							"path": [
 								"products",
-								"7"
+								"2cbdb315-d800-42da-98bb-5abad285e0db"
 							]
 						}
 					},
@@ -169,10 +263,20 @@
 				{
 					"name": "Delete product",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RlczEyM0BnbWFpbC5jb20iLCJyb2xlIjoiY3VzdG9tZXIiLCJpYXQiOjE2NzQxODM4MjMsImV4cCI6MTY3NDE4NzQyMywiaXNzIjoiYmxhbmphIn0.v6soW945Fa9MqFH_j2zixMaiX0aP7HT0nQeIM6-dmIg",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/products/7",
+							"raw": "http://localhost:3000/products/2cbdb315-d800-42da-98bb-5abad285e0db",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -180,7 +284,7 @@
 							"port": "3000",
 							"path": [
 								"products",
-								"7"
+								"2cbdb315-d800-42da-98bb-5abad285e0db"
 							]
 						}
 					},
@@ -192,80 +296,145 @@
 			"name": "Customers",
 			"item": [
 				{
-					"name": "Get all customer",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/customers",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"customers"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get customer by id",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/customers/4",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"customers",
-								"4"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Create customer",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\": \"iqbal\",\n    \"phone_number\": \"081223465932\",\n    \"email\": \"iqbal@gmail.com\",\n    \"password\": \"213412asd\",\n    \"gender\": \"laki-laki\",\n    \"date_of_birth\": \"1999-01-24\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+					"name": "Auth",
+					"item": [
+						{
+							"name": "Register customer",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"fullname\" : \"Alif Anke\",\n    \"email\" : \"testes123@gmail.com\",\n    \"password\" : \"11223344\",\n    \"phone_number\" : \"087512345678\",\n    \"gender\" : \"laki-laki\",\n    \"date_of_birth\" : \"1999-01-24\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/customers/register",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"customers",
+										"register"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "http://localhost:3000/customers",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"customers"
-							]
+						{
+							"name": "Login customer",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\" : \"testes123@gmail.com\",\n    \"password\" : \"11223344\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/customers/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"customers",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Refresh token",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"refreshToken\" : \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RlczEyM0BnbWFpbC5jb20iLCJyb2xlIjoiY3VzdG9tZXIiLCJpYXQiOjE2NzQxODM4NzUsImV4cCI6MTY3NDI3MDI3NX0.rK9QRrpjKo5dp6a0TsAO_kNZKlf_YWMJRiLOd3yVcn8\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/customers/refresh-token",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"customers",
+										"refresh-token"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Profile",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RlczEyM0BnbWFpbC5jb20iLCJyb2xlIjoiY3VzdG9tZXIiLCJpYXQiOjE2NzQxODQxODgsImV4cCI6MTY3NDE4Nzc4OCwiaXNzIjoiYmxhbmphIn0.BkTMD2v84I7H02FNHLkB-_bCxYJ1u9Hjq_9p3kiW0IM",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/customers/profile",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"customers",
+										"profile"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				},
 				{
 					"name": "Update customer",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RlczEyM0BnbWFpbC5jb20iLCJyb2xlIjoiY3VzdG9tZXIiLCJpYXQiOjE2NzQxODQwMjMsImV4cCI6MTY3NDE4NzYyMywiaXNzIjoiYmxhbmphIn0.5DUfGCO-p50NSTUBuyvLG57LMgx9PPKpd0ZfhBdsQZA",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Ilham\",\n    \"phone_number\": \"081223465932\",\n    \"email\": \"ilham@gmail.com\",\n    \"password\": \"jonfawefnocweoi\",\n    \"gender\": \"laki-laki\",\n    \"date_of_birth\": \"1999-01-24\"\n}",
+							"raw": "{\n    \"fullname\" : \"Alif Anke\",\n    \"email\" : \"testes123@gmail.com\",\n    \"password\" : \"11223344\",\n    \"phone_number\" : \"081211111111\",\n    \"gender\" : \"laki-laki\",\n    \"date_of_birth\" : \"1999-01-24\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -273,7 +442,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/customers/10",
+							"raw": "http://localhost:3000/customers/458ecd64-820d-4a4b-8fa9-0d2f0162bad0",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -281,7 +450,7 @@
 							"port": "3000",
 							"path": [
 								"customers",
-								"10"
+								"458ecd64-820d-4a4b-8fa9-0d2f0162bad0"
 							]
 						}
 					},
@@ -290,10 +459,20 @@
 				{
 					"name": "Delete customer",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RlczEyM0BnbWFpbC5jb20iLCJyb2xlIjoiY3VzdG9tZXIiLCJpYXQiOjE2NzQxODQwMjMsImV4cCI6MTY3NDE4NzYyMywiaXNzIjoiYmxhbmphIn0.5DUfGCO-p50NSTUBuyvLG57LMgx9PPKpd0ZfhBdsQZA",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/customers/5",
+							"raw": "http://localhost:3000/customers/1a29a89e-9a47-4917-b19b-94629bb4502d",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -301,7 +480,7 @@
 							"port": "3000",
 							"path": [
 								"customers",
-								"5"
+								"1a29a89e-9a47-4917-b19b-94629bb4502d"
 							]
 						}
 					},
@@ -313,80 +492,148 @@
 			"name": "Sellers",
 			"item": [
 				{
-					"name": "Get all seller",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/sellers",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"sellers"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get seller by id",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/sellers/20",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"sellers",
-								"20"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Create seller",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\": \"ilham\",\n    \"phone_number\": \"085714738678\",\n    \"email\": \"alif@gmail.com\",\n    \"password\": \"bjksdfbj34\",\n    \"gender\": \"laki-laki\",\n    \"date_of_birth\": \"1999-10-10\",\n    \"store_name\": \"Coders\",\n    \"store_description\": \"Jual merchandise programmer\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+					"name": "Auth",
+					"item": [
+						{
+							"name": "Register seller",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"fullname\" : \"Kamal\",\n    \"email\" : \"kamal@gmail.com\",\n    \"password\" : \"11223344\",\n    \"phone_number\" : \"087512345678\",\n    \"gender\" : \"laki-laki\",\n    \"date_of_birth\" : \"1999-01-24\",\n    \"store_name\" : \"toko makmur jaya\",\n    \"store_description\" : \"semoga makmur (amin)\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/sellers/register",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"sellers",
+										"register"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "http://localhost:3000/sellers",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"sellers"
-							]
+						{
+							"name": "Login Seller",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\" : \"kamal@gmail.com\",\n    \"password\" : \"11223344\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/sellers/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"sellers",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Refresh token",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"refreshToken\" : \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImthbWFsQGdtYWlsLmNvbSIsInJvbGUiOiJzZWxsZXIiLCJpYXQiOjE2NzQxODQzNzgsImV4cCI6MTY3NDE4Nzk3OCwiaXNzIjoiYmxhbmphIn0.3IB-H4FnDpnrcQ2jVMM6PpuwxVox1RUh2UQdM885i34\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/sellers/refresh-token",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"sellers",
+										"refresh-token"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Profile",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImthbWFsQGdtYWlsLmNvbSIsInJvbGUiOiJzZWxsZXIiLCJpYXQiOjE2NzQxODQzOTQsImV4cCI6MTY3NDE4Nzk5NCwiaXNzIjoiYmxhbmphIn0.kDaGRkDkQNW6tJW90j_Ybo2UfeSx6nk21jCmMg3G6Bk",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/sellers/profile",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"sellers",
+										"profile"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				},
 				{
 					"name": "Update seller",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImthbWFsQGdtYWlsLmNvbSIsInJvbGUiOiJzZWxsZXIiLCJpYXQiOjE2NzQxODQzNzgsImV4cCI6MTY3NDE4Nzk3OCwiaXNzIjoiYmxhbmphIn0.3IB-H4FnDpnrcQ2jVMM6PpuwxVox1RUh2UQdM885i34",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"alif\",\n    \"phone_number\": \"085714738678\",\n    \"email\": \"alif@gmail.com\",\n    \"password\": \"bjksdfbj34\",\n    \"gender\": \"laki-laki\",\n    \"date_of_birth\": \"1999-10-10\",\n    \"store_name\": \"Toko makmur jaya\",\n    \"store_description\": \"Jual barang keren\"\n}",
+							"raw": "{\n    \"fullname\" : \"Kamal\",\n    \"email\" : \"kamal@gmail.com\",\n    \"password\" : \"11223344\",\n    \"phone_number\" : \"0857123123\",\n    \"gender\" : \"laki-laki\",\n    \"date_of_birth\" : \"1999-01-24\",\n    \"store_name\" : \"toko makmur jaya\",\n    \"store_description\" : \"semoga makmur (amin)\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -394,7 +641,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/sellers/2",
+							"raw": "http://localhost:3000/sellers/6994d02b-4813-4a41-8982-f520bd5454ab",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -402,7 +649,7 @@
 							"port": "3000",
 							"path": [
 								"sellers",
-								"2"
+								"6994d02b-4813-4a41-8982-f520bd5454ab"
 							]
 						}
 					},
@@ -411,10 +658,20 @@
 				{
 					"name": "Delete seller",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImthbWFsQGdtYWlsLmNvbSIsInJvbGUiOiJzZWxsZXIiLCJpYXQiOjE2NzQxODQzNzgsImV4cCI6MTY3NDE4Nzk3OCwiaXNzIjoiYmxhbmphIn0.3IB-H4FnDpnrcQ2jVMM6PpuwxVox1RUh2UQdM885i34",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/sellers/5",
+							"raw": "http://localhost:3000/sellers/6994d02b-4813-4a41-8982-f520bd5454ab",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -422,7 +679,7 @@
 							"port": "3000",
 							"path": [
 								"sellers",
-								"5"
+								"6994d02b-4813-4a41-8982-f520bd5454ab"
 							]
 						}
 					},

@@ -1,4 +1,6 @@
 const multer = require('multer');
+const path = require('path');
+const createError = require('http-errors');
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -6,10 +8,26 @@ const storage = multer.diskStorage({
   },
   filename: function (req, file, cb) {
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-    cb(null, file.fieldname + '-' + uniqueSuffix + '.png');
+    const extFile = path.extname(file.originalname).split('.')[1];
+    console.log(extFile);
+    cb(null, file.fieldname + '-' + uniqueSuffix + '.' + extFile.toLowerCase());
   }
 })
 
-const upload = multer({ storage: storage })
+const upload = multer({
+  storage: storage,
+  limits: {
+    fileSize: 2 * 1000 * 1000,  //2 MB
+  },
+  fileFilter: (req, file, cb) => {
+    const acceptedTypeFile = ['jpg', 'png', 'jpeg'];
+
+    const extFile = path.extname(file.originalname).split('.')[1];
+    if (!acceptedTypeFile.includes(extFile.toLowerCase())) {
+      return cb(new createError(422, 'File extensions should be jpg, jpeg, png'));
+    }
+    cb(null, true);
+  },
+});
 
 module.exports = upload;

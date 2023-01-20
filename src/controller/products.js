@@ -8,12 +8,12 @@ const productController = {
   createProduct: async (req, res) => {
     try {
       //Configuration
-     let data = req.body;
+      let data = req.body;
       const PORT = process.env.PORT || 5000;
       const HOST = process.env.HOST || 'localhost';
       const photo = req.file.filename;
       const id = uuidv4();
-      data = {id, photo : `http://${HOST}:${PORT}/img/${photo}`};
+      data = {...data, id, photo : `http://${HOST}:${PORT}/img/${photo}`};
 
       //createProduct response
       const result = await modelProducts.insertProduct(data);
@@ -52,7 +52,7 @@ const productController = {
   getDetailProduct: async (req, res) => {
     try {
       //Checks if specified id exists
-      const id = Number(req.params.id);
+      const id = req.params.id;
       const { rowCount } = await modelProducts.findId(id);
       if (!rowCount) return res.json({ Message: "Product not found" });
 
@@ -67,13 +67,18 @@ const productController = {
   updateProduct: async (req, res) => {
     try {
       //Checks if specified id exists
-      const id = Number(req.params.id);
+      const id = req.params.id;
       const { rowCount } = await modelProducts.findId(id);
       if (!rowCount) return res.json({ Message: "Product not found" });
 
       //updateProduct response
-      const data = req.body;
-      data.id = id;
+      let data = req.body;
+      const photo = req.file.filename;
+      const PORT = process.env.PORT || 5000;
+      const HOST = process.env.HOST || 'localhost';
+      data = {...data, id, photo : `http://${HOST}:${PORT}/img/${photo}`};
+
+      console.log(data);
       const result = await modelProducts.updateProduct(data);
       commonHelper.response(res, result.rows, 200, "Product updated");
     } catch (error) {
@@ -84,7 +89,7 @@ const productController = {
   deleteProduct: async (req, res) => {
     try {
       //Checks if specified id exists
-      const id = Number(req.params.id);
+      const id = req.params.id;
       const { rowCount } = await modelProducts.findId(id);
       if (!rowCount) return res.json({ Message: "Product not found" });
       
