@@ -7,15 +7,12 @@ const productController = {
 
   createProduct: async (req, res) => {
     try {
-      //Configuration
-      let data = req.body;
-      const PORT = process.env.PORT || 5000;
+      const data = req.body;
+      data.id = uuidv4();
       const HOST = process.env.HOST || 'localhost';
-      const photo = req.file.filename;
-      const id = uuidv4();
-      data = {...data, id, photo : `http://${HOST}:${PORT}/img/${photo}`};
-
-      //createProduct response
+      const PORT = process.env.PORT || 5000;
+      data.photo = `http://${HOST}:${PORT}/img/${req.file.filename}`;
+      
       const result = await modelProducts.insertProduct(data);
       commonHelper.response(res, result.rows, 200, "Product created");
     } catch (error) {
@@ -25,24 +22,27 @@ const productController = {
 
   getAllProducts: async (req, res) => {
     try {
-      //Parameter queries
+      //Search and pagination query
       const searchParam = req.query.search || '';
       const sortBy = req.query.sortBy || 'name';
       const sort = req.query.sort || 'ASC';
       const limit = Number(req.query.limit) || 5;
       const page = Number(req.query.page) || 1;
       const offset = (page - 1) * limit;
+      
       const result = await modelProducts.selectAllProduct(searchParam, sortBy, sort, limit, offset);
       if (!result.rows[0]) return res.json({ Message: "No product found" });
 
-      //Pagination
+      //Pagination info
       const { rows: [count] } = await modelProducts.countData();
-      const totalData = Number(count.count);
-      const totalPage = Math.ceil(totalData / limit);
-      const pagination = { currentPage: page, limit, totalData, totalPage };
+      const pagination = {
+        currentPage: page,
+        limit,
+        totalData: Number(count.count),
+        totalPage: Math.ceil(totalData / limit)
+      };
 
-      //getAllProducts response
-      commonHelper.response(res, result.rows, 200, "Get all product successful", pagination);
+      commonHelper.response(res, result.rows, 200, "Get all products successful", pagination);
     } catch (error) {
       if (error.name == "error") return res.json({ Message: "Incorrect parameter query" });
       res.send(error);
@@ -51,12 +51,10 @@ const productController = {
 
   getDetailProduct: async (req, res) => {
     try {
-      //Checks if specified id exists
       const id = req.params.id;
       const { rowCount } = await modelProducts.findId(id);
       if (!rowCount) return res.json({ Message: "Product not found" });
 
-      //getDetailProduct response
       const result = await modelProducts.selectProduct(id);
       commonHelper.response(res, result.rows[0], 200, "Get product successful");
     } catch (error) {
@@ -66,19 +64,16 @@ const productController = {
 
   updateProduct: async (req, res) => {
     try {
-      //Checks if specified id exists
       const id = req.params.id;
       const { rowCount } = await modelProducts.findId(id);
       if (!rowCount) return res.json({ Message: "Product not found" });
 
-      //updateProduct response
-      let data = req.body;
-      const photo = req.file.filename;
-      const PORT = process.env.PORT || 5000;
+      const data = req.body;
+      data.id = id;
       const HOST = process.env.HOST || 'localhost';
-      data = {...data, id, photo : `http://${HOST}:${PORT}/img/${photo}`};
-
-      console.log(data);
+      const PORT = process.env.PORT || 5000;
+      data.photo = `http://${HOST}:${PORT}/img/${req.file.filename}`;
+      
       const result = await modelProducts.updateProduct(data);
       commonHelper.response(res, result.rows, 200, "Product updated");
     } catch (error) {
@@ -88,12 +83,10 @@ const productController = {
 
   deleteProduct: async (req, res) => {
     try {
-      //Checks if specified id exists
       const id = req.params.id;
       const { rowCount } = await modelProducts.findId(id);
       if (!rowCount) return res.json({ Message: "Product not found" });
-      
-      //deleteProduct response
+
       const result = await modelProducts.deleteProduct(id);
       commonHelper.response(res, result.rows, 200, "Product deleted");
     } catch (error) {

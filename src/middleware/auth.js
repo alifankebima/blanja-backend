@@ -12,8 +12,8 @@ const protect = (req, res, next) => {
     } else {
       res.json({ message: "server need token" });
     }
+
   } catch (error) {
-    console.log(error);
     if (error && error.name === 'JsonWebTokenError') {
       next(new createError(400, 'Token invalid'));
     } else if (error && error.name === 'TokenExpiredError') {
@@ -24,7 +24,7 @@ const protect = (req, res, next) => {
   }
 }
 
-const valSeller = (req, res, next) => {
+const isSeller = (req, res, next) => {
   const payload = req.payload;
   if(payload){
     if(payload.role === "seller"){
@@ -37,7 +37,7 @@ const valSeller = (req, res, next) => {
   }
 }
 
-const valCustomer = (req, res, next) => {
+const isCustomer = (req, res, next) => {
   const payload = req.payload;
   if(payload){
     if(payload.role === "customer"){
@@ -50,4 +50,4 @@ const valCustomer = (req, res, next) => {
   }
 }
 
-module.exports = { protect, valSeller, valCustomer }
+module.exports = { protect, isSeller, isCustomer }
