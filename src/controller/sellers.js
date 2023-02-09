@@ -76,14 +76,14 @@ const sellerController = {
   
   getAllSellers: async (req, res) => {
     try {
-      const { rows: [count] } = await modelCustomers.countData();
+      const { rows: [count] } = await modelSellers.countData();
 
-      const pagination = {
-        currentPage: Number(req.query.page) || 1,
-        limit: Number(req.query.limit) || 5,
-        totalData: Number(count.count),
-        totalPage: Math.ceil(totalData / limit)
-      };
+      //Pagination info
+      const page = Number(req.query.page) || 1;
+      const limit = Number(req.query.limit) || 5;
+      const totalData = Number(count.count);
+      const totalPage = Math.ceil(totalData / limit);
+      const pagination = { currentPage: page, limit, totalData, totalPage };
 
       const result = await modelSellers.getAllSellers();
       commonHelper.response(res, result.rows, 200, "Get all sellers successful", pagination);

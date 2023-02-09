@@ -4,6 +4,7 @@ const createError = require('http-errors');
 const protect = (req, res, next) => {
   try {
     let token;
+    console.log(req.headers);
     if (req.headers.authorization) {
       token = req.headers.authorization.split(" ")[1];
       let decoded = jwt.verify(token, process.env.SECRETKEY_JWT);
@@ -12,7 +13,7 @@ const protect = (req, res, next) => {
     } else {
       res.json({ message: "server need token" });
     }
-
+    
   } catch (error) {
     if (error && error.name === 'JsonWebTokenError') {
       next(new createError(400, 'Token invalid'));
