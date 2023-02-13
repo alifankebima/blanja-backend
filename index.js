@@ -39,5 +39,5 @@ app.use((err, req, res, next) => {
 
 //Start and listen to the specified port
 app.listen(port, () => {
-  console.log(`Website link : http://localhost:${port}`);
+  console.log(`API Link : http://localhost:${port}`);
 })

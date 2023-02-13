@@ -2,7 +2,7 @@ create database blanja;
 \l
 \c blanja;
 
-create type gender as enum ('laki-laki', 'perempuan');
+create type gender as enum ('Laki-Laki', 'Perempuan');
 
 create table customers(
     id varchar not null primary key,
@@ -38,6 +38,7 @@ create table products(
     color varchar not null,
     size int not null,
     rating int,
+    category varchar,
     id_category int,
     id_seller int 
 );
