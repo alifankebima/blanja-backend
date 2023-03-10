@@ -10,8 +10,7 @@ const productController = {
       const data = req.body;
       data.id = uuidv4();
       const HOST = process.env.RAILWAY_STATIC_URL || 'localhost';
-      const PORT = process.env.PORT || 5000;
-      data.photo = `http://${HOST}:${PORT}/img/${req.file.filename}`;
+      data.photo = `http://${HOST}/img/${req.file.filename}`;
 
       const result = await modelProducts.insertProduct(data);
       commonHelper.response(res, result.rows, 200, "Product created");
@@ -69,8 +68,7 @@ const productController = {
       const data = req.body;
       data.id = id;
       const HOST = process.env.RAILWAY_STATIC_URL || 'localhost';
-      const PORT = process.env.PORT || 5000;
-      data.photo = `http://${HOST}:${PORT}/img/${req.file.filename}`;
+      data.photo = `http://${HOST}/img/${req.file.filename}`;
 
       const result = await modelProducts.updateProduct(data);
       commonHelper.response(res, result.rows, 200, "Product updated");
