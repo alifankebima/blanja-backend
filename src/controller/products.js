@@ -9,7 +9,7 @@ const productController = {
     try {
       const data = req.body;
       data.id = uuidv4();
-      const HOST = process.env.HOST || 'localhost';
+      const HOST = process.env.RAILWAY_STATIC_URL || 'localhost';
       const PORT = process.env.PORT || 5000;
       data.photo = `http://${HOST}:${PORT}/img/${req.file.filename}`;
 
@@ -68,7 +68,7 @@ const productController = {
 
       const data = req.body;
       data.id = id;
-      const HOST = process.env.HOST || 'localhost';
+      const HOST = process.env.RAILWAY_STATIC_URL || 'localhost';
       const PORT = process.env.PORT || 5000;
       data.photo = `http://${HOST}:${PORT}/img/${req.file.filename}`;
 
