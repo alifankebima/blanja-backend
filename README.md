@@ -39,7 +39,7 @@ this repository also serves as a learning exercise at creating backend app with 
 
 ## Installation
 Follow this steps to run the server :
-1. Clone this repository with `git clone https://github.com/breadsticks64/blanja_backend.git`
+1. Clone this repository with `git clone https://github.com/alifankebima/blanja-backend.git`
 2. Change directory to blanja_backend with `cd blanja_backend`
 3. Run `node install` to install all of the required modules
 4. Create and configure `.env` file, example are provided in `.env.example`
