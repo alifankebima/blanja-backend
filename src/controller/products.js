@@ -1,5 +1,5 @@
 const { v4: uuidv4 } = require('uuid');
-
+const googleDrive = require('../config/googleDrive');
 const modelProducts = require('../model/products');
 const commonHelper = require('../helper/common');
 
@@ -9,8 +9,13 @@ const productController = {
     try {
       const data = req.body;
       data.id = uuidv4();
-      const HOST = process.env.RAILWAY_STATIC_URL || 'localhost';
-      data.photo = `http://${HOST}/img/${req.file.filename}`;
+
+      // Google drive
+      const uploadResult = await googleDrive.uploadImage(req.file)
+      const parentPath = process.env.GOOGLE_DRIVE_PHOTO_PATH;
+      data.photo = parentPath.concat(uploadResult.id)
+      // const HOST = process.env.RAILWAY_STATIC_URL || 'localhost';
+      // data.photo = `http://${HOST}/img/${req.file.filename}`;
 
       const result = await modelProducts.insertProduct(data);
       commonHelper.response(res, result.rows, 200, "Product created");
@@ -62,13 +67,19 @@ const productController = {
   updateProduct: async (req, res) => {
     try {
       const id = req.params.id;
-      const { rowCount } = await modelProducts.findId(id);
-      if (!rowCount) return res.json({ Message: "Product not found" });
-
+      const oldProduct = await modelProducts.selectProduct(id);
+      if (!oldProduct.rowCount) return res.json({ Message: "Product not found" });
+      console.log(oldProduct.rows[0])
       const data = req.body;
       data.id = id;
-      const HOST = process.env.RAILWAY_STATIC_URL || 'localhost';
-      data.photo = `http://${HOST}/img/${req.file.filename}`;
+      // Google drive
+      const oldImage = oldProduct.rows[0].photo;
+      const oldImageId = oldImage.split("=")[1];
+      const updateResult = await googleDrive.updateImage(req.file, oldImageId)
+      const parentPath = process.env.GOOGLE_DRIVE_PHOTO_PATH;
+      data.photo = parentPath.concat(updateResult.id)
+      // const HOST = process.env.RAILWAY_STATIC_URL || 'localhost';
+      // data.photo = `http://${HOST}/img/${req.file.filename}`;
 
       const result = await modelProducts.updateProduct(data);
       commonHelper.response(res, result.rows, 200, "Product updated");
@@ -80,10 +91,15 @@ const productController = {
   deleteProduct: async (req, res) => {
     try {
       const id = req.params.id;
-      const { rowCount } = await modelProducts.findId(id);
-      if (!rowCount) return res.json({ Message: "Product not found" });
+      const oldProduct = await modelProducts.selectProduct(id);
+      if (!oldProduct.rowCount) return res.json({ Message: "Product not found" });
+
+      const oldPhoto = oldProduct.rows[0].photo;
+      const oldPhotoId = oldPhoto.split("=")[1];
+      await googleDrive.deleteImage(oldPhotoId);
 
       const result = await modelProducts.deleteProduct(id);
+
       commonHelper.response(res, result.rows, 200, "Product deleted");
     } catch (error) {
       res.send(error);

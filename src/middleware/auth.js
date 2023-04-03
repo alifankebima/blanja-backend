@@ -4,7 +4,6 @@ const createError = require('http-errors');
 const protect = (req, res, next) => {
   try {
     let token;
-    console.log(req.headers);
     if (req.headers.authorization) {
       token = req.headers.authorization.split(" ")[1];
       let decoded = jwt.verify(token, process.env.SECRETKEY_JWT);
