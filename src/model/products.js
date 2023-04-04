@@ -21,7 +21,9 @@ const updateProduct = (data) => {
     const { id, name, stock, price, photo, description, color, size, rating,
         id_category, id_seller } = data;
     return pool.query(`update products set name='${name}', stock=${stock},
-        price=${price}, photo='${photo}', description='${description}', 
+        price=${price},
+        ${photo ? "photo='" + photo + "', " : ""}
+        description='${description}', 
         color='${color}', size=${size}, rating=${rating}, id_category='${id_category}', 
         id_seller='${id_seller}' where id='${id}'`);
 }

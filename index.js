@@ -39,5 +39,6 @@ app.use((err, req, res, next) => {
 
 //Start and listen to the specified port
 app.listen(port, () => {
+  console.log(`Server URL : ${process.env.RAILWAY_STATIC_URL}`);
   console.log(`API Link : http://localhost:${port}`);
 })

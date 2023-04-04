@@ -69,15 +69,17 @@ const productController = {
       const id = req.params.id;
       const oldProduct = await modelProducts.selectProduct(id);
       if (!oldProduct.rowCount) return res.json({ Message: "Product not found" });
-      console.log(oldProduct.rows[0])
       const data = req.body;
+      console.log(data)
       data.id = id;
       // Google drive
-      const oldImage = oldProduct.rows[0].photo;
-      const oldImageId = oldImage.split("=")[1];
-      const updateResult = await googleDrive.updateImage(req.file, oldImageId)
-      const parentPath = process.env.GOOGLE_DRIVE_PHOTO_PATH;
-      data.photo = parentPath.concat(updateResult.id)
+      if (req.file) {
+        const oldImage = oldProduct.rows[0].photo;
+        const oldImageId = oldImage.split("=")[1];
+        const updateResult = await googleDrive.updateImage(req.file, oldImageId)
+        const parentPath = process.env.GOOGLE_DRIVE_PHOTO_PATH;
+        data.photo = parentPath.concat(updateResult.id)
+      }
       // const HOST = process.env.RAILWAY_STATIC_URL || 'localhost';
       // data.photo = `http://${HOST}/img/${req.file.filename}`;
 
@@ -90,13 +92,17 @@ const productController = {
 
   deleteProduct: async (req, res) => {
     try {
+      
       const id = req.params.id;
       const oldProduct = await modelProducts.selectProduct(id);
       if (!oldProduct.rowCount) return res.json({ Message: "Product not found" });
-
-      const oldPhoto = oldProduct.rows[0].photo;
-      const oldPhotoId = oldPhoto.split("=")[1];
-      await googleDrive.deleteImage(oldPhotoId);
+      // console.log(oldProduct.rows[0].photo === null);
+      if (oldProduct.rows[0].photo != "null") {
+        const oldPhoto = oldProduct.rows[0].photo;
+        const oldPhotoId = oldPhoto.split("=")[1];
+        await googleDrive.deleteImage(oldPhotoId);
+      }
+      
 
       const result = await modelProducts.deleteProduct(id);
 
