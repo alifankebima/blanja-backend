@@ -42,9 +42,3 @@ create table products(
     id_category int,
     id_seller int 
 );
-
--- TODO: Create category - products relation
--- create table category(
---     id int not null primary key,
---     name varchar(255) not null
--- );

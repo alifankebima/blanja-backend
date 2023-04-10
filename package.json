@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon index.js",
     "server": "node index.js",
-    "debug": "eslint --fix --ext .js,.jsx ."
+    "lint": "eslint --fix --ext .js,.jsx ."
   },
   "author": "",
   "license": "ISC",

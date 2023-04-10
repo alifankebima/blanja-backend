@@ -1,0 +1,623 @@
+{
+	"info": {
+		"_postman_id": "7fdf6c4c-5270-4227-a1ec-8b5bcd232275",
+		"name": "Blanja",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26309865"
+	},
+	"item": [
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "Get all products",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/products?sortBy=id&as",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"products"
+							],
+							"query": [
+								{
+									"key": "sortBy",
+									"value": "id"
+								},
+								{
+									"key": "as",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get product by id",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/products/{{id_product}}",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"products",
+								"{{id_product}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search product",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/products?search=apel",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"products"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "apel"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "baju polos",
+									"type": "text"
+								},
+								{
+									"key": "stock",
+									"value": "2",
+									"type": "default"
+								},
+								{
+									"key": "price",
+									"value": "240000",
+									"type": "default"
+								},
+								{
+									"key": "photo",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "description",
+									"value": "Merchandise baju",
+									"type": "default"
+								},
+								{
+									"key": "color",
+									"value": "putih",
+									"type": "default"
+								},
+								{
+									"key": "size",
+									"value": "24",
+									"type": "default"
+								},
+								{
+									"key": "rating",
+									"value": "5",
+									"type": "default"
+								},
+								{
+									"key": "id_category",
+									"value": "1",
+									"type": "default"
+								},
+								{
+									"key": "id_seller",
+									"value": "2",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{localhost}}/products",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update product",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Baju update",
+									"type": "text"
+								},
+								{
+									"key": "stock",
+									"value": "2",
+									"type": "default"
+								},
+								{
+									"key": "price",
+									"value": "240000",
+									"type": "default"
+								},
+								{
+									"key": "photo",
+									"type": "file",
+									"src": "/home/alif/Unduhan/semarang 1.jpeg"
+								},
+								{
+									"key": "description",
+									"value": "Merchandise baju monstercat",
+									"type": "default"
+								},
+								{
+									"key": "color",
+									"value": "putih",
+									"type": "default"
+								},
+								{
+									"key": "size",
+									"value": "24",
+									"type": "default"
+								},
+								{
+									"key": "rating",
+									"value": "5",
+									"type": "default"
+								},
+								{
+									"key": "id_category",
+									"value": "1",
+									"type": "default"
+								},
+								{
+									"key": "id_seller",
+									"value": "2",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{localhost}}/products/b286b188-bdec-4ec1-b6f2-c7483971f612",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"products",
+								"b286b188-bdec-4ec1-b6f2-c7483971f612"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete product",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/products/29c1f3eb-54c8-4665-ae73-6a2a9721b3c9",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"products",
+								"29c1f3eb-54c8-4665-ae73-6a2a9721b3c9"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Customers",
+			"item": [
+				{
+					"name": "Auth",
+					"item": [
+						{
+							"name": "Register customer",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"fullname\" : \"Alif Anke\",\n    \"email\" : \"testes123@gmail.com\",\n    \"password\" : \"11223344\",\n    \"phone_number\" : \"087512345678\",\n    \"gender\" : \"laki-laki\",\n    \"date_of_birth\" : \"1999-01-24\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_URL}}/customers/register",
+									"host": [
+										"{{API_URL}}"
+									],
+									"path": [
+										"customers",
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login customer",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\" : \"testes123@gmail.com\",\n    \"password\" : \"11223344\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_URL}}/customers/login",
+									"host": [
+										"{{API_URL}}"
+									],
+									"path": [
+										"customers",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Refresh token",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"refreshToken\" : \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RlczEyM0BnbWFpbC5jb20iLCJyb2xlIjoiY3VzdG9tZXIiLCJpYXQiOjE2NzQxODM4NzUsImV4cCI6MTY3NDI3MDI3NX0.rK9QRrpjKo5dp6a0TsAO_kNZKlf_YWMJRiLOd3yVcn8\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_URL}}/customers/refresh-token",
+									"host": [
+										"{{API_URL}}"
+									],
+									"path": [
+										"customers",
+										"refresh-token"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Profile",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{API_URL}}/customers/profile",
+									"host": [
+										"{{API_URL}}"
+									],
+									"path": [
+										"customers",
+										"profile"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Update customer",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"fullname\" : \"Alif Anke\",\n    \"email\" : \"testes123@gmail.com\",\n    \"password\" : \"11223344\",\n    \"phone_number\" : \"081211111111\",\n    \"gender\" : \"laki-laki\",\n    \"date_of_birth\" : \"1999-01-24\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}}/customers/{{id_customer}}",
+							"host": [
+								"{{API_URL}}}"
+							],
+							"path": [
+								"customers",
+								"{{id_customer}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete customer",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/customers/{{id_customer}}",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"customers",
+								"{{id_customer}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Sellers",
+			"item": [
+				{
+					"name": "Auth",
+					"item": [
+						{
+							"name": "Register seller",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"fullname\" : \"Kamal\",\n    \"email\" : \"kamal@gmail.com\",\n    \"password\" : \"11223344\",\n    \"phone_number\" : \"087512345678\",\n    \"gender\" : \"laki-laki\",\n    \"date_of_birth\" : \"1999-01-24\",\n    \"store_name\" : \"toko makmur jaya\",\n    \"store_description\" : \"semoga makmur (amin)\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_URL}}/sellers/register",
+									"host": [
+										"{{API_URL}}"
+									],
+									"path": [
+										"sellers",
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login Seller",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\" : \"alif@gmail.com\",\n    \"password\" : \"11223344\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_URL}}/sellers/login",
+									"host": [
+										"{{API_URL}}"
+									],
+									"path": [
+										"sellers",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Refresh token",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"refreshToken\" : \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImthbWFsQGdtYWlsLmNvbSIsInJvbGUiOiJzZWxsZXIiLCJpYXQiOjE2NzQxODQzNzgsImV4cCI6MTY3NDE4Nzk3OCwiaXNzIjoiYmxhbmphIn0.3IB-H4FnDpnrcQ2jVMM6PpuwxVox1RUh2UQdM885i34\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_URL}}/sellers/refresh-token",
+									"host": [
+										"{{API_URL}}"
+									],
+									"path": [
+										"sellers",
+										"refresh-token"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Profile",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{API_URL}}/sellers/profile",
+									"host": [
+										"{{API_URL}}"
+									],
+									"path": [
+										"sellers",
+										"profile"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Update seller",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"fullname\" : \"Kamal\",\n    \"email\" : \"kamal@gmail.com\",\n    \"password\" : \"11223344\",\n    \"phone_number\" : \"0857123123\",\n    \"gender\" : \"laki-laki\",\n    \"date_of_birth\" : \"1999-01-24\",\n    \"store_name\" : \"toko makmur jaya\",\n    \"store_description\" : \"semoga makmur (amin)\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/sellers/{{id_seller}}",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"sellers",
+								"{{id_seller}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete seller",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/sellers/{{id_seller}}",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"sellers",
+								"{{id_seller}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{seller_token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "API_URL",
+			"value": "https://blanja-backend-production-71bf.up.railway.app"
+		},
+		{
+			"key": "id_product",
+			"value": "31ab033a-1875-4e8a-a3c3-751f51e6027b"
+		},
+		{
+			"key": "id_customer",
+			"value": "458ecd64-820d-4a4b-8fa9-0d2f0162bad0"
+		},
+		{
+			"key": "id_seller",
+			"value": "6994d02b-4813-4a41-8982-f520bd5454ab"
+		},
+		{
+			"key": "localhost",
+			"value": "http://localhost:4000",
+			"type": "string"
+		},
+		{
+			"key": "seller_token",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsaWZAZ21haWwuY29tIiwicm9sZSI6InNlbGxlciIsImlhdCI6MTY4MDUzMDMxNCwiZXhwIjoxNjgwNTMzOTE0LCJpc3MiOiJibGFuamEifQ.3TEudSkIOvVQtNu8jlABOLa9sAF5CIzIe_QfIAOsWlo"
+		}
+	]
+}
