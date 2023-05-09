@@ -12,7 +12,7 @@ const customerController = {
     try {
       const data = req.body;
       const { rowCount } = await modelCustomers.findEmail(data.email);
-      if (rowCount) return res.json({ Message: "Email is already used" });
+      if (rowCount) return res.json({ message: "Email is already used" });
 
       data.id = uuidv4();
       const salt = bcrypt.genSaltSync(10);
@@ -31,9 +31,9 @@ const customerController = {
       const data = req.body;
 
       const { rows: [user] } = await modelCustomers.findEmail(data.email);
-      if (!user) return res.json({ Message: "Email is invalid" });
+      if (!user) return res.json({ message: "Email is invalid" });
       const isValidPassword = bcrypt.compareSync(data.password, user.password);
-      if (!isValidPassword) return res.json({ Message: "Password is invalid" });
+      if (!isValidPassword) return res.json({ message: "Password is invalid" });
 
       const payload = {
         email: user.email,
@@ -97,7 +97,7 @@ const customerController = {
     try {
       const id = req.params.id;
       const { rowCount } = await modelCustomers.findId(id);
-      if (!rowCount) return res.json({ Message: "Customer not found" });
+      if (!rowCount) return res.json({ message: "Customer not found" });
 
       const result = await modelCustomers.getCustomer(id);
       commonHelper.response(res, result.rows[0], 200, "Get detail customer successful");
@@ -112,7 +112,7 @@ const customerController = {
       const id = req.params.id;
       
       const { rowCount } = await modelCustomers.findId(id);
-      if (!rowCount) return res.json({ Message: "Customer not found" });
+      if (!rowCount) return res.json({ message: "Customer not found" });
 
       data.id = id;
       const result = await modelCustomers.updateCustomer(data);
@@ -126,7 +126,7 @@ const customerController = {
     try {
       const id = req.params.id;
       const { rowCount } = await modelCustomers.findId(id);
-      if (!rowCount) return res.json({ Message: "Customer not found" });
+      if (!rowCount) return res.json({ message: "Customer not found" });
 
       const result = await modelCustomers.deleteCustomer(id);
       commonHelper.response(res, result.rows, 200, "Customer deleted");

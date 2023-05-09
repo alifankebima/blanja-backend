@@ -12,7 +12,7 @@ const sellerController = {
     try {
       let data = req.body;
       const { rowCount } = await modelSellers.findEmail(data.email);
-      if (rowCount) return res.json({ Message: "Email is already used" });
+      if (rowCount) return res.json({ message: "Email is already used" });
 
       data.id = uuidv4();
       const salt = bcrypt.genSaltSync(10);
@@ -31,9 +31,9 @@ const sellerController = {
       const data = req.body;
       
       const { rows: [user] } = await modelSellers.findEmail(data.email);
-      if (!user) return res.json({ Message: "Email is invalid" });
+      if (!user) return res.status(403).json({ message: "Email is invalid" });
       const isValidPassword = bcrypt.compareSync(data.password, user.password);
-      if (!isValidPassword) return res.json({ Message: "Password is invalid" });
+      if (!isValidPassword) return res.status(403).json({ message: "Password is invalid" });
 
       const payload = {
         email: user.email,
@@ -96,7 +96,7 @@ const sellerController = {
     try {
       const id = Number(req.params.id);
       const { rowCount } = await modelSellers.findId(id);
-      if (!rowCount) return res.json({ Message: "Seller not found" });
+      if (!rowCount) return res.json({ message: "Seller not found" });
 
       const result = await modelSellers.getSeller(id);
       commonHelper.response(res, result.rows[0], 200, "Get seller successful");
@@ -110,7 +110,7 @@ const sellerController = {
       const data = req.body;
       const id = req.params.id;
       const { rowCount } = await modelSellers.findId(id);
-      if (!rowCount) return res.json({ Message: "Seller not found" });
+      if (!rowCount) return res.json({ message: "Seller not found" });
 
       data.id = id;
       const result = await modelSellers.updateSeller(data);
@@ -124,7 +124,7 @@ const sellerController = {
     try {
       const id = req.params.id;
       const { rowCount } = await modelSellers.findId(id);
-      if (!rowCount) return res.json({ Message: "Seller not found" });
+      if (!rowCount) return res.json({ message: "Seller not found" });
 
       const result = modelSellers.deleteSeller(id);
       commonHelper.response(res, result.rows, 200, "Seller deleted");

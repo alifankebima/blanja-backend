@@ -35,7 +35,7 @@ const productController = {
       const offset = (page - 1) * limit;
 
       const result = await modelProducts.selectAllProduct(searchParam, sortBy, sort, limit, offset);
-      if (!result.rows[0]) return res.json({ Message: "No product found" });
+      if (!result.rows[0]) return res.json({ message: "No product found" });
 
       //Pagination info
       const { rows: [count] } = await modelProducts.countData();
@@ -45,7 +45,7 @@ const productController = {
 
       commonHelper.response(res, result.rows, 200, "Get all products successful", pagination);
     } catch (error) {
-      if (error.name == "error") return res.json({ Message: "Incorrect parameter query" });
+      if (error.name == "error") return res.json({ message: "Incorrect parameter query" });
       res.send(error);
     }
   },
@@ -54,7 +54,7 @@ const productController = {
     try {
       const id = req.params.id;
       const { rowCount } = await modelProducts.findId(id);
-      if (!rowCount) return res.json({ Message: "Product not found" });
+      if (!rowCount) return res.json({ message: "Product not found" });
 
       const result = await modelProducts.selectProduct(id);
       commonHelper.response(res, result.rows[0], 200, "Get product successful");
@@ -68,7 +68,7 @@ const productController = {
     try {
       const id = req.params.id;
       const oldProduct = await modelProducts.selectProduct(id);
-      if (!oldProduct.rowCount) return res.json({ Message: "Product not found" });
+      if (!oldProduct.rowCount) return res.json({ message: "Product not found" });
       const data = req.body;
       console.log(data)
       data.id = id;
@@ -95,7 +95,7 @@ const productController = {
       
       const id = req.params.id;
       const oldProduct = await modelProducts.selectProduct(id);
-      if (!oldProduct.rowCount) return res.json({ Message: "Product not found" });
+      if (!oldProduct.rowCount) return res.json({ message: "Product not found" });
       // console.log(oldProduct.rows[0].photo === null);
       if (oldProduct.rows[0].photo != "null") {
         const oldPhoto = oldProduct.rows[0].photo;
