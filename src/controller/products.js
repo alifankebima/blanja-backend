@@ -12,8 +12,9 @@ const productController = {
 
       // Google drive
       const uploadResult = await googleDrive.uploadImage(req.file)
-      const parentPath = process.env.GOOGLE_DRIVE_PHOTO_PATH;
-      data.photo = parentPath.concat(uploadResult.id)
+      const parentPathPrefix = process.env.GOOGLE_DRIVE_PHOTO_PATH_PREFIX;
+      const parentPathPostfix = process.env.GOOGLE_DRIVE_PHOTO_PATH_POSTFIX;
+      data.photo = parentPathPrefix + uploadResult.id + parentPathPostfix
       // const HOST = process.env.RAILWAY_STATIC_URL || 'localhost';
       // data.photo = `http://${HOST}/img/${req.file.filename}`;
 
@@ -77,11 +78,10 @@ const productController = {
         const oldImage = oldProduct.rows[0].photo;
         const oldImageId = oldImage.split("=")[1];
         const updateResult = await googleDrive.updateImage(req.file, oldImageId)
-        const parentPath = process.env.GOOGLE_DRIVE_PHOTO_PATH;
-        data.photo = parentPath.concat(updateResult.id)
+        const parentPathPrefix = process.env.GOOGLE_DRIVE_PHOTO_PATH_PREFIX;
+        const parentPathPostfix = process.env.GOOGLE_DRIVE_PHOTO_PATH_POSTFIX;
+        data.photo = parentPathPrefix + updateResult.id + parentPathPostfix
       }
-      // const HOST = process.env.RAILWAY_STATIC_URL || 'localhost';
-      // data.photo = `http://${HOST}/img/${req.file.filename}`;
 
       const result = await modelProducts.updateProduct(data);
       commonHelper.response(res, result.rows, 200, "Product updated");
